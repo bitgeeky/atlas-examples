@@ -1,0 +1,43 @@
+{
+    "variables": {
+        "aws_access_key": "YOUR_ACCESS_KEY",
+        "aws_secret_key": "YOUR_SECRET_KEY"
+    },
+    "builders": [{
+        "type": "amazon-ebs",
+        "access_key": "{{user `aws_access_key`}}",
+        "secret_key": "{{user `aws_secret_key`}}",
+        "region": "us-east-1",
+        "source_ami": "ami-9a562df2",
+        "instance_type": "t2.micro",
+        "ssh_username": "ubuntu",
+        "ami_name": "lamp_stack {{timestamp}}"
+    }],
+    "push": {
+        "name": "<username>/lamp_stack"
+    },
+    "provisioners": [
+    {   
+        "type": "file",
+        "source": "/packer/app",
+        "destination": "/tmp"
+
+    },
+    {   
+        "type": "shell",
+        "scripts": [
+            "scripts/apache-php.sh",
+            "scripts/mysql.sh"
+        ]
+    }],
+    "post-processors": [
+    {
+        "type": "atlas",
+        "artifact": "<username>/lamp_stack",
+        "artifact_type": "aws.ami",
+        "metadata": {
+            "created_at": "{{timestamp}}"
+        }
+    }
+    ]
+}
