@@ -1,7 +1,7 @@
 {
     "variables": {
-        "aws_access_key": "YOUR_ACCESS_KEY",
-        "aws_secret_key": "YOUR_SECRET_KEY"
+        "aws_access_key": "",
+        "aws_secret_key": ""
     },
     "builders": [{
         "type": "amazon-ebs",
@@ -14,7 +14,7 @@
         "ami_name": "apache-php {{timestamp}}"
     }],
     "push": {
-      "name": "<username>/apache-php",
+      "name": "username/apache-php",
       "vcs": false
     },
     "provisioners": [
@@ -48,17 +48,13 @@
     },
     {
         "type": "shell",
-        "script": "scripts/debug.sh"
-    },
-    {
-        "type": "shell",
         "script": "scripts/apache-php.sh"
     }
     ],
     "post-processors": [
       {
         "type": "atlas",
-        "artifact": "<username>/apache-php",
+        "artifact": "username/apache-php",
         "artifact_type": "aws.ami",
         "metadata": {
           "created_at": "{{timestamp}}"

@@ -1,7 +1,7 @@
 <?php
 $username = "apache";
 $password = "password";{{range service "mysql.database"}}
-$hostname = "{{.Address}}"{{end}};
+$hostname = "172.31.5.255";
 
 //connection to the database
 $dbhandle = mysql_connect($hostname, $username, $password)

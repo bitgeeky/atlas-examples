@@ -9,6 +9,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/var/www/public", :mount_options => ["dmode=777", "fmode=666"]
 
   config.push.define "atlas" do |push|
-    push.app = "<username>/php"
+    push.app = "bitgeeky/php"
   end
 end

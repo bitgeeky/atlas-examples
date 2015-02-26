@@ -1,7 +1,7 @@
 {
     "variables": {
-        "aws_access_key": "YOUR_ACCESS_KEY",
-        "aws_secret_key": "YOUR_SECRET_KEY"
+        "aws_access_key": "",
+        "aws_secret_key": ""
     },
     "builders": [{
         "type": "amazon-ebs",
@@ -14,7 +14,7 @@
         "ami_name": "mysql {{timestamp}}"
     }],
     "push": {
-      "name": "<username>/mysql"
+      "name": "username/mysql"
     },
     "provisioners": [
     {   
@@ -35,17 +35,13 @@
     },
     {
         "type": "shell",
-        "script": "scripts/debug.sh"
-    },
-    {
-        "type": "shell",
         "script": "scripts/mysql.sh"
     }
     ],
     "post-processors": [
       {
         "type": "atlas",
-        "artifact": "<username>/mysql",
+        "artifact": "username/mysql",
         "artifact_type": "aws.ami",
         "metadata": {
           "created_at": "{{timestamp}}"
